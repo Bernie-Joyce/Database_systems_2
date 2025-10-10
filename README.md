@@ -25,6 +25,8 @@ CA1 Milestone 3 – Part 1 (20%) In-class Presentation
 CA1 Milestone 3 – Part 2 (20%) Process Documentation
 Workbook or Video Essay with Reflective Analysis Uploaded to Moodle - on/before 5pm Friday 5th December 2025
 Feedback on Project will be delivered during class sessions.
+
+
 For all submissions, please upload one WinZip file per team containing the relevant files :
 • Word File containing names and responsibility of authors, scenario, ERD, database schema and tables, together with process
 documentation (or video essay) and reflective analysis. For Normalisation, you may have an additional excel file or you can
@@ -64,3 +66,5 @@ guidelines-and-how-avoid-plagiarism
 due date is subject to the penalties outlined in the Institute Continuous Assessment Procedures.
 • The terms recoverable and non-recoverable are detailed in the Institute Continuous Assessment
 Procedures.
+
+<img width="647" height="713" alt="Screenshot 2025-10-10 at 10 41 53 p m" src="https://github.com/user-attachments/assets/a9f9cb42-0ef9-4f27-806e-2637dee47fb2" />
