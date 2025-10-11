@@ -1,26 +1,26 @@
 CREATE TABLE Region(
     region_id INT PRIMARY KEY,
-    NAME VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     climate VARCHAR(50) NOT NULL
 );CREATE TABLE Town(
     town_id INT PRIMARY KEY,
     region_id INT NOT NULL,
-    NAME VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     population INT NOT NULL,
     FOREIGN KEY(region_id) REFERENCES Region(region_id)
-);CREATE TABLE TYPES(
+);CREATE TABLE Types(
     type_id INT PRIMARY KEY,
     type_name VARCHAR(50) NOT NULL
 );CREATE TABLE Trainer(
     trainer_id INT PRIMARY KEY,
     home_town_id INT NOT NULL,
-    NAME VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     gender VARCHAR(50) NOT NULL,
     age INT,
     FOREIGN KEY(home_town_id) REFERENCES Town(town_id)
 ); CREATE TABLE Pokemon(
     pokemon_id INT PRIMARY KEY,
-    NAME VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     base_hp INT NOT NULL,
     base_attack INT NOT NULL,
     base_defense INT NOT NULL
