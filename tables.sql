@@ -46,9 +46,9 @@ CREATE TABLE TrainerPokemon(
     pokemon_id INT NOT NULL,
     nick_name VARCHAR(50) NOT NULL,
     pokemon_level INT NOT NULL,
-    hit_points INT NOT NULL,
-    attack INT NOT NULL,
-    defense INT NOT NULL,
+    hit_points_iv INT NOT NULL,
+    attack_iv INT NOT NULL,
+    defense_iv INT NOT NULL,
     FOREIGN KEY(trainer_id) REFERENCES Trainer(trainer_id),
     FOREIGN KEY(pokemon_id) REFERENCES Pokemon(pokemon_id)
 );
