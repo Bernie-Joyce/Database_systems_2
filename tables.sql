@@ -57,10 +57,11 @@ CREATE TABLE Gym(
     leader_id INT NOT NULL,
     town_id INT NOT NULL,
     type_id INT NOT NULL,
-    badge VARCHAR(50) NOT NULL,
+    badge_id INT NOT NULL,
     FOREIGN KEY(leader_id) REFERENCES Trainer(trainer_id),
     FOREIGN KEY(town_id) REFERENCES Town(town_id),
-    FOREIGN KEY(type_id) REFERENCES Types(type_id)
+    FOREIGN KEY(type_id) REFERENCES Types(type_id),
+    FOREIGN KEY(badge_id) REFERENCES Badge(badge_id)
 );
 CREATE TABLE TypeAdvantage(
     type_1 INT NOT NULL,
@@ -79,4 +80,8 @@ CREATE TABLE WildPokemon(
     max_level INT NOT NULL,
     FOREIGN KEY(pokemon_id) REFERENCES Pokemon(pokemon_id),
     FOREIGN KEY(region_id) REFERENCES Region(region_id)
+);
+CREATE TABLE Badge(
+    badge_id INT PRIMARY KEY,
+    badge_name VARCHAR(50) NOT NULL
 );
