@@ -2,8 +2,8 @@ CREATE TABLE Region(
     region_id INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     climate VARCHAR(50) NOT NULL
-)
-;CREATE TABLE Town(
+);
+CREATE TABLE Town(
     town_id INT PRIMARY KEY,
     region_id INT NOT NULL,
     name VARCHAR(50) NOT NULL,
