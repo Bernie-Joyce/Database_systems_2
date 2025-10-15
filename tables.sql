@@ -36,6 +36,7 @@ CREATE TABLE Pokemon(
 CREATE TABLE PokemonTypes(
     pokemon_id INT NOT NULL,
     type_id INT NOT NULL,
+    PRIMARY KEY(pokemon_id, type_id),
     FOREIGN KEY(pokemon_id) REFERENCES Pokemon(pokemon_id),
     FOREIGN KEY(type_id) REFERENCES Types(type_id)
 );
@@ -65,6 +66,7 @@ CREATE TABLE TypeAdvantage(
     type_1 INT NOT NULL,
     type_2 INT NOT NULL,
     type_advantage VARCHAR(50) NOT NULL,
+    PRIMARY KEY(type_1, type_2),
     FOREIGN KEY(type_1) REFERENCES Types(type_id),
     FOREIGN KEY(type_2) REFERENCES Types(type_id)
 );
