@@ -1,3 +1,7 @@
+CREATE DATABASE Pokemon;
+
+USE Pokemon;
+
 CREATE TABLE Region(
     region_id INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
