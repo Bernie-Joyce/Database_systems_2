@@ -3,23 +3,23 @@ CREATE DATABASE Pokemon;
 USE Pokemon;
 
 CREATE TABLE Region(
-    region_id INT PRIMARY KEY,
+    region_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     climate VARCHAR(50) NOT NULL
 );
 CREATE TABLE Town(
-    town_id INT PRIMARY KEY,
+    town_id INT PRIMARY KEY AUTO_INCREMENT,
     region_id INT NOT NULL,
     name VARCHAR(50) NOT NULL,
     population INT NOT NULL,
     FOREIGN KEY(region_id) REFERENCES Region(region_id)
 );
 CREATE TABLE Types(
-    type_id INT PRIMARY KEY,
+    type_id INT PRIMARY KEY AUTO_INCREMENT,
     type_name VARCHAR(50) NOT NULL
 );
 CREATE TABLE Trainer(
-    trainer_id INT PRIMARY KEY,
+    trainer_id INT PRIMARY KEY AUTO_INCREMENT,
     home_town_id INT NOT NULL,
     name VARCHAR(50) NOT NULL,
     gender VARCHAR(50) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE Trainer(
     FOREIGN KEY(home_town_id) REFERENCES Town(town_id)
 );
 CREATE TABLE Pokemon(
-    pokemon_id INT PRIMARY KEY,
+    pokemon_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     base_hp INT NOT NULL,
     base_attack INT NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE PokemonTypes(
     FOREIGN KEY(type_id) REFERENCES Types(type_id)
 );
 CREATE TABLE TrainerPokemon(
-    caught_id INT PRIMARY KEY,
+    caught_id INT PRIMARY KEY AUTO_INCREMENT,
     trainer_id INT NOT NULL,
     pokemon_id INT NOT NULL,
     nick_name VARCHAR(50) NOT NULL,
@@ -53,11 +53,11 @@ CREATE TABLE TrainerPokemon(
     FOREIGN KEY(pokemon_id) REFERENCES Pokemon(pokemon_id)
 );
 CREATE TABLE Badge(
-    badge_id INT PRIMARY KEY,
+    badge_id INT PRIMARY KEY AUTO_INCREMENT,
     badge_name VARCHAR(50) NOT NULL
 );
 CREATE TABLE Gym(
-    gym_id INT PRIMARY KEY,
+    gym_id INT PRIMARY KEY AUTO_INCREMENT,
     leader_id INT NOT NULL,
     town_id INT NOT NULL,
     type_id INT NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE TypeAdvantage(
     FOREIGN KEY(type_2) REFERENCES Types(type_id)
 );
 CREATE TABLE WildPokemon(
-    wild_id INT PRIMARY KEY,
+    wild_id INT PRIMARY KEY AUTO_INCREMENT,
     pokemon_id INT NOT NULL,
     region_id INT NOT NULL,
     location_description VARCHAR(50) NOT NULL,
