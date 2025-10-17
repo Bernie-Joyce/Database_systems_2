@@ -1,4 +1,8 @@
 -- A stored procedures used to trade pokemon which has a transaction that rollsback if an error occurs and commits otherwise
+-- Can be tested running:
+-- CALL TradePokemon(1, 1, 8, 4); 
+-- twice
+
 DELIMITER $$
 
   -- Create procedure to trade pokemon 
