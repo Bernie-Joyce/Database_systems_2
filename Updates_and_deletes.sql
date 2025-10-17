@@ -1,3 +1,5 @@
+-- Because of constraints Delete statements can only be run properly with triggers present
+
 -- Update pokemon level by 1 for each pokemon with trainer_id = 4
 UPDATE trainerpokemon AS tp
 SET tp.pokemon_level = tp.pokemon_level + 1
