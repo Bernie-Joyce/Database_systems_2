@@ -4,10 +4,6 @@ CREATE INDEX index_wildpokemon_region ON WildPokemon(region_id);
 -- Index for the pokemon join
 CREATE INDEX index_wildpokemon_pokemon ON WildPokemon(pokemon_id);
 
--- Index for PokemonTypes join (frequent joins between Pokemon and Types)
-CREATE INDEX idx_pokemontypes_pokemon_id ON PokemonTypes(pokemon_id);
-CREATE INDEX idx_pokemontypes_type_id ON PokemonTypes(type_id);
-
 -- To show indexes being used run
 EXPLAIN
 SELECT 
