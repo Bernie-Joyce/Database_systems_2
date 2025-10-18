@@ -28,3 +28,39 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
+-- Procedure used to add a new trainer with a starter pokemon
+DELIMITER $$
+
+CREATE PROCEDURE AddTrainerWithStarter(
+    IN trainerName VARCHAR(50),
+    IN gender VARCHAR(10),
+    IN age INT,
+    IN homeTownID INT,
+    IN starterPokemonID INT,
+    IN nickname VARCHAR(50),
+    IN starterLevel INT
+)
+BEGIN
+    DECLARE new_trainer_id INT;
+    DECLARE hp_iv INT DEFAULT FLOOR(RAND() * 31);
+    DECLARE atk_iv INT DEFAULT FLOOR(RAND() * 31);
+    DECLARE def_iv INT DEFAULT FLOOR(RAND() * 31);
+
+    -- Insert trainer into Trainer table
+    INSERT INTO Trainer (home_town_id, name, gender, age)
+    VALUES (homeTownID, trainerName, gender, age);
+
+    -- Store last inserted trainer id
+    SET new_trainer_id = LAST_INSERT_ID();
+
+    -- Insert starter pokemon into TrainerPokemon
+    INSERT INTO TrainerPokemon (trainer_id, pokemon_id, nick_name, pokemon_level, hit_points_iv, attack_iv, defense_iv)
+    VALUES (new_trainer_id, starterPokemonID, nickname, starterLevel, hp_iv, atk_iv, def_iv);
+
+    -- Return confirmation
+    SELECT CONCAT('Trainer ', trainerName, ' added with starter Pokemon ID ', starterPokemonID) AS status;
+END$$
+
+DELIMITER ;
