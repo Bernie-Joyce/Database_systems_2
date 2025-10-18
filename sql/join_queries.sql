@@ -17,3 +17,15 @@ FROM TrainerPokemon AS tp
 JOIN Trainer AS tr ON tp.trainer_id = tr.trainer_id
 JOIN Pokemon AS p ON tp.pokemon_id = p.pokemon_id
 ORDER BY tr.name;
+
+--Show all gym leaders and their pokemon
+SELECT
+    tr.name AS Trainer,
+    g.gym_id AS Gym,
+    p.name AS Pokemon,
+    tp.pokemon_level AS Level
+FROM Trainer AS tr
+JOIN TrainerPokemon As tp ON tr.trainer_id = tp.trainer_id
+JOIN Gym as g on g.leader_id = tr.trainer_id
+JOIN Pokemon AS p on tp.pokemon_id = p.pokemon_id
+order by g.gym_id, tr.name;
