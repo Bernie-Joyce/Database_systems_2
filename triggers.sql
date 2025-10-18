@@ -7,8 +7,8 @@ FOR EACH ROW
 BEGIN
   INSERT INTO DeletedTrainers (TrainerID, Name, Action)
   VALUES (OLD.trainer_id, OLD.name, 'deleted');
-END$$
 
+END$$
 DELIMITER ;
 
 
@@ -19,15 +19,17 @@ CREATE TRIGGER delete_trainer_pokemon
 BEFORE DELETE ON Trainer
 FOR EACH ROW
 BEGIN
-  DELETE FROM trainerpokemon
+  DELETE FROM TrainerPokemon
   WHERE trainer_id = OLD.trainer_id;
+
 END $$
+DELIMITER ;
 
 -- change gym leader if curent leader gets deleted
-  
-DELIMITER ;
+DELIMITER $$
+
 CREATE TRIGGER change_leader_if_deleted
-BEFORE DELETE ON trainer
+BEFORE DELETE ON Trainer
 FOR EACH ROW
 BEGIN
     DECLARE new_leader INT;
@@ -42,7 +44,7 @@ BEGIN
     ELSE
         SELECT trainer_id
         INTO new_leader
-        FROM Player
+        FROM Trainer
         WHERE trainer_id <> OLD.trainer_id
         ORDER BY trainer_id
         LIMIT 1;
@@ -53,4 +55,6 @@ BEGIN
             WHERE leader_id = OLD.trainer_id;
         END IF;
     END IF;
-END$$
+
+END $$
+DELIMITER ;
