@@ -25,7 +25,8 @@ BEGIN
 END $$
 DELIMITER ;
 
--- change gym leader if curent leader gets deleted
+
+-- Change gym leader if curent leader gets deleted
 DELIMITER $$
 
 CREATE TRIGGER change_leader_if_deleted
@@ -58,6 +59,7 @@ BEGIN
 
 END $$
 DELIMITER ;
+
 
 -- Automatically adjust pokemon level to stay within valid bounds (between 1 and 100)
 DELIMITER $$
