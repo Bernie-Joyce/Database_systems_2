@@ -80,3 +80,33 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER after_insert_trainer
+AFTER INSERT ON Trainer
+FOR EACH ROW
+BEGIN
+    DECLARE rand_int INT;
+    DECLARE starter_id INT;
+
+    SET rand_int = FLOOR(RAND() * 3);
+
+    CASE rand_int
+        WHEN 0 THEN SET starter_id = 1; -- Bulbasaur
+        WHEN 1 THEN SET starter_id = 4; -- Charmander
+        WHEN 2 THEN SET starter_id = 7; -- Squirtle
+    END CASE;
+
+    INSERT INTO TrainerPokemon (
+        trainer_id, pokemon_id, nick_name, pokemon_level,
+        hit_points_iv, attack_iv, defense_iv
+    )
+    VALUES (
+        NEW.trainer_id, starter_id, 'Starter', 5,
+        FLOOR(RAND() * 32), FLOOR(RAND() * 32), FLOOR(RAND() * 32)
+    );
+END$$
+
+DELIMITER ;
+
