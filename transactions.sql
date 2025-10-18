@@ -50,3 +50,50 @@ END$$
 
 DELIMITER ;
 
+
+
+-- A stored procedure used to simulate buying a wild pokemon by a trainer
+-- Rolls back if any insert/update fails
+-- Example test:
+-- CALL BuyPokemon(1, 1, 5, 25, 12, 10, 10, 10);
+
+DELIMITER $$
+
+CREATE PROCEDURE BuyPokemon(
+    IN wild_pokemon_id INT,  -- ID in WildPokemon
+    IN trainer_id INT,       -- trainer who buys
+    IN pokemon_level INT,
+    IN hit_iv INT,
+    IN atk_iv INT,
+    IN def_iv INT
+)
+BEGIN
+    DECLARE pkmn_id INT;
+    DECLARE pkmn_name VARCHAR(50);
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SELECT 'Purchase failed, rolled back' AS status;
+    END;
+
+    START TRANSACTION;
+
+    -- Get pokemon ID and name from WildPokemon
+    SELECT wp.pokemon_id, p.name
+    INTO pkmn_id, pkmn_name
+    FROM WildPokemon AS wp
+    JOIN Pokemon AS p ON wp.pokemon_id = p.pokemon_id
+    WHERE wp.wild_id = wild_pokemon_id;
+
+    -- Insert into TrainerPokemon table (trainer now owns it)
+    INSERT INTO TrainerPokemon(trainer_id, pokemon_id, nick_name, pokemon_level, hit_points_iv, attack_iv, defense_iv)
+    VALUES (trainer_id, pkmn_id, pkmn_name, pokemon_level, hit_iv, atk_iv, def_iv);
+
+    -- Remove from WildPokemon (caught)
+    DELETE FROM WildPokemon WHERE wild_id = wild_pokemon_id;
+
+    COMMIT;
+    SELECT CONCAT('Trainer ', trainer_id, ' successfully bought ', pkmn_name) AS status;
+END$$
+
+DELIMITER ;
