@@ -58,3 +58,23 @@ BEGIN
 
 END $$
 DELIMITER ;
+
+-- Automatically adjust pokemon level to stay within valid bounds (between 1 and 100)
+DELIMITER $$
+
+CREATE TRIGGER check_pokemon_level
+BEFORE INSERT ON TrainerPokemon
+FOR EACH ROW
+BEGIN
+  -- If level less than 1, set it to 1
+  IF NEW.pokemon_level < 1 THEN
+    SET NEW.pokemon_level = 1;
+  END IF;
+
+  -- If level greater than 100, set it to 100
+  IF NEW.pokemon_level > 100 THEN
+    SET NEW.pokemon_level = 100;
+  END IF;
+END$$
+
+DELIMITER ;
