@@ -18,3 +18,14 @@ SELECT
     
 FROM TrainerPokemon tp
 JOIN Pokemon p ON tp.pokemon_id = p.pokemon_id;
+
+-- View: Displays each Pokemon with all of its types combined into one line
+CREATE VIEW PokemonWithTypes AS
+SELECT
+  p.pokemon_id,
+  p.name,
+  GROUP_CONCAT(t.type_name ORDER BY t.type_name SEPARATOR '/') AS types
+FROM Pokemon AS p
+LEFT JOIN PokemonTypes AS pt ON pt.pokemon_id = p.pokemon_id
+LEFT JOIN Types AS t         ON t.type_id = pt.type_id
+GROUP BY p.pokemon_id, p.name;
