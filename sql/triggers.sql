@@ -81,4 +81,21 @@ END$$
 
 DELIMITER ;
 
+DELIMITER $$
 
+create trigger cap_max_iv
+    before insert on TrainerPokemon
+    for each row
+    begin
+        if NEW.hit_points_iv > 31 then
+            set new.hit_points_iv = 31;
+        end if;
+        if NEW.attack_iv > 31 then
+            set new.attack_iv = 31;
+        end if;
+        if NEW.defense_iv > 31 then
+            set new.defense_iv = 31;
+        end if;
+    end;
+
+DELIMITER ;
