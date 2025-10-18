@@ -16,5 +16,5 @@ SELECT
     -- Calculated Defense
     FLOOR(((p.base_defense + tp.defense_iv) * 2 * tp.pokemon_level) / 100) + 5 AS Defense
     
-FROM trainerpokemon tp
-JOIN pokemon p ON tp.pokemon_id = p.pokemon_id;
+FROM TrainerPokemon tp
+JOIN Pokemon p ON tp.pokemon_id = p.pokemon_id;
