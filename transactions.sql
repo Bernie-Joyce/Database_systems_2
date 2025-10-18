@@ -27,13 +27,13 @@ BEGIN
     START TRANSACTION;
 
     -- Transfer Pokemon 1 to trainer 2 and set amount of rows affected
-    UPDATE trainerpokemon
+    UPDATE TrainerPokemon
     SET trainer_id = t2_id
     WHERE caught_id = p1_id AND trainer_id = t1_id;
     SET rows1 = ROW_COUNT();
 
     --  Transfer Pokemon 2 to trainer 1 and set amount of rows affected
-    UPDATE trainerpokemon
+    UPDATE TrainerPokemon
     SET trainer_id = t1_id
     WHERE caught_id = p2_id AND trainer_id = t2_id;
     SET rows2 = ROW_COUNT();
