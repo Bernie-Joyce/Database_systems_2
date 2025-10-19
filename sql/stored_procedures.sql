@@ -35,8 +35,6 @@ DELIMITER $$
 
 CREATE PROCEDURE AddTrainerWithStarter(
     IN trainerName VARCHAR(50),
-    IN gender VARCHAR(10),
-    IN age INT,
     IN homeTownID INT,
     IN starterPokemonID INT,
     IN nickname VARCHAR(50),

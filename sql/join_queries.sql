@@ -18,7 +18,7 @@ JOIN Trainer AS tr ON tp.trainer_id = tr.trainer_id
 JOIN Pokemon AS p ON tp.pokemon_id = p.pokemon_id
 ORDER BY tr.name;
 
---Show all gym leaders and their pokemon
+-- Show all gym leaders and their pokemon
 SELECT
     tr.name AS Trainer,
     g.gym_id AS Gym,
