@@ -41,4 +41,4 @@ include this in the word file.
 database administration and transactions. Make sure to have clear comments to show each section.
 • .java file for JDBC.
 
-<img width="647" height="713" alt="Screenshot 2025-10-10 at 10 41 53 p m" src="https://github.com/user-attachments/assets/a9f9cb42-0ef9-4f27-806e-2637dee47fb2" />
+<img width="812" height="828" alt="Screenshot 2025-10-19 at 11 51 23 a m" src="https://github.com/user-attachments/assets/3d874ea3-c512-4496-8c7d-55b627fbf337" />
