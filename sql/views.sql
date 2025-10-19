@@ -29,3 +29,28 @@ FROM Pokemon AS p
 LEFT JOIN PokemonTypes AS pt ON pt.pokemon_id = p.pokemon_id
 LEFT JOIN Types AS t         ON t.type_id = pt.type_id
 GROUP BY p.pokemon_id, p.name;
+
+-- View: Displays trainer details with total pokemon, if there a gym leader and there location
+CREATE VIEW TrainerSummary AS
+SELECT
+    tr.trainer_id,
+    tr.name AS TrainerName,
+    tr.gender,
+    tr.age,
+    COUNT(tp.pokemon_id) AS TotalPokemon,
+    CASE
+        WHEN g.leader_id IS NOT NULL THEN 'Yes'
+        ELSE 'No'
+        END AS IsGymLeader,
+    twn.name AS HomeTown,
+    r.name AS Region,
+    gt.name AS GymTown,
+    ty.type_name AS GymType
+FROM Trainer AS tr
+         LEFT JOIN TrainerPokemon AS tp ON tr.trainer_id = tp.trainer_id
+         LEFT JOIN Gym AS g ON tr.trainer_id = g.leader_id
+         LEFT JOIN Town AS gt ON g.town_id = gt.town_id
+         LEFT JOIN Types AS ty ON g.type_id = ty.type_id
+         JOIN Town AS twn ON tr.home_town_id = twn.town_id
+         JOIN Region AS r ON twn.region_id = r.region_id
+GROUP BY tr.trainer_id, tr.name, tr.gender, tr.age, g.leader_id, twn.name, r.name, gt.name, ty.type_name;
