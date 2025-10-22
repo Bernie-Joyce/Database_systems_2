@@ -2,11 +2,14 @@ CREATE DATABASE Pokemon;
 
 USE Pokemon;
 
+-- Create a table that stores all regions
 CREATE TABLE Region(
                        region_id INT PRIMARY KEY AUTO_INCREMENT,
                        name VARCHAR(50) NOT NULL,
                        climate VARCHAR(50) NOT NULL
 );
+
+-- Create a table that stores data on towns across the world
 CREATE TABLE Town(
                      town_id INT PRIMARY KEY AUTO_INCREMENT,
                      region_id INT NOT NULL,
@@ -14,10 +17,14 @@ CREATE TABLE Town(
                      population INT NOT NULL,
                      FOREIGN KEY(region_id) REFERENCES Region(region_id)
 );
+
+-- Create a table that stores all types
 CREATE TABLE Types(
                       type_id INT PRIMARY KEY AUTO_INCREMENT,
                       type_name VARCHAR(50) NOT NULL
 );
+
+-- Create a table that stores data on Trainers
 CREATE TABLE Trainer(
                         trainer_id INT PRIMARY KEY AUTO_INCREMENT,
                         home_town_id INT NOT NULL,
@@ -26,6 +33,8 @@ CREATE TABLE Trainer(
                         age INT,
                         FOREIGN KEY(home_town_id) REFERENCES Town(town_id)
 );
+
+-- Create a table that stores general data on pokemon species
 CREATE TABLE Pokemon(
                         pokemon_id INT PRIMARY KEY AUTO_INCREMENT,
                         name VARCHAR(50) NOT NULL,
@@ -33,6 +42,8 @@ CREATE TABLE Pokemon(
                         base_attack INT NOT NULL,
                         base_defense INT NOT NULL
 );
+
+-- Create a table that has a compound key and stores data on types each pokemon has
 CREATE TABLE PokemonTypes(
                              pokemon_id INT NOT NULL,
                              type_id INT NOT NULL,
@@ -40,6 +51,8 @@ CREATE TABLE PokemonTypes(
                              FOREIGN KEY(pokemon_id) REFERENCES Pokemon(pokemon_id),
                              FOREIGN KEY(type_id) REFERENCES Types(type_id)
 );
+
+-- Create a table that stores data on each pokemon owned by a trainer
 CREATE TABLE TrainerPokemon(
                                caught_id INT PRIMARY KEY AUTO_INCREMENT,
                                trainer_id INT NOT NULL,
@@ -52,10 +65,14 @@ CREATE TABLE TrainerPokemon(
                                FOREIGN KEY(trainer_id) REFERENCES Trainer(trainer_id),
                                FOREIGN KEY(pokemon_id) REFERENCES Pokemon(pokemon_id)
 );
+
+-- Create a table that has information on badges in the gyms
 CREATE TABLE Badge(
                       badge_id INT PRIMARY KEY AUTO_INCREMENT,
                       badge_name VARCHAR(50) NOT NULL
 );
+
+-- Create a table that has information on Gyms
 CREATE TABLE Gym(
                     gym_id INT PRIMARY KEY AUTO_INCREMENT,
                     leader_id INT NOT NULL,
@@ -67,6 +84,8 @@ CREATE TABLE Gym(
                     FOREIGN KEY(type_id) REFERENCES Types(type_id),
                     FOREIGN KEY(badge_id) REFERENCES Badge(badge_id)
 );
+
+-- Create a table that stores all type advantages
 CREATE TABLE TypeAdvantage(
                               type_1 INT NOT NULL,
                               type_2 INT NOT NULL,
@@ -75,6 +94,8 @@ CREATE TABLE TypeAdvantage(
                               FOREIGN KEY(type_1) REFERENCES Types(type_id),
                               FOREIGN KEY(type_2) REFERENCES Types(type_id)
 );
+
+-- Create a table that stores information on wild pokemon appearances and level range
 CREATE TABLE WildPokemon(
                             wild_id INT PRIMARY KEY AUTO_INCREMENT,
                             pokemon_id INT NOT NULL,
@@ -85,6 +106,8 @@ CREATE TABLE WildPokemon(
                             FOREIGN KEY(pokemon_id) REFERENCES Pokemon(pokemon_id),
                             FOREIGN KEY(region_id) REFERENCES Region(region_id)
 );
+
+-- Insert data into Region
 INSERT INTO Region (region_id, name, climate) VALUES
                                                   (1, "Kanto", "Humid subtropical climate"),
                                                   (2, "Johto", "Humid subtropical climate"),
@@ -96,7 +119,7 @@ INSERT INTO Region (region_id, name, climate) VALUES
                                                   (8, "Galar", "Oceanic"),
                                                   (9, "Hisui", "Warm-summer humid continental"),
                                                   (10, "Paldea", "Humid subtropical climate");
-
+-- Insert data into Town
 INSERT INTO Town (town_id, region_id, name, population) VALUES
                                                             (1, 1, "Pewter City", 30),
                                                             (2, 1, "Cerulean City", 27),
@@ -118,7 +141,7 @@ INSERT INTO Town (town_id, region_id, name, population) VALUES
                                                             (18, 9, "Diamond Outpost", 19),
                                                             (19, 10, "Mesagoza", 756),
                                                             (20, 10, "Medali", 95);
-
+-- Insert data into Types
 INSERT INTO Types (type_id, type_name) VALUES
                                            (1, "Normal"),
                                            (2, "Fire"),
@@ -138,7 +161,7 @@ INSERT INTO Types (type_id, type_name) VALUES
                                            (16, "Dark"),
                                            (17, "Steel"),
                                            (18, "Fairy");
-
+-- Insert data into Trainer
 INSERT INTO Trainer (trainer_id, home_town_id, name, gender, age) VALUES
                                                                       (1, 1, "Brock", "M", 15),
                                                                       (2, 2, "Misty", "F", 10),
@@ -150,7 +173,7 @@ INSERT INTO Trainer (trainer_id, home_town_id, name, gender, age) VALUES
                                                                       (8, 8, "Riven", "F", 45),
                                                                       (9, 9, "Kael", "M", 22),
                                                                       (10, 10, "Mira", "F", 26);
-
+-- Insert data into Pokemon
 INSERT INTO Pokemon (pokemon_id, name, base_hp, base_attack, base_defense) VALUES
                                                                                (1, "Bulbasaur", 45, 49, 49),
                                                                                (2, "Ivysaur", 60, 62, 63),
@@ -303,7 +326,7 @@ INSERT INTO Pokemon (pokemon_id, name, base_hp, base_attack, base_defense) VALUE
                                                                                (149, "Dragonite", 91, 134, 95),
                                                                                (150, "Mewtwo", 106, 110, 90),
                                                                                (151, "Mew", 100, 100, 100);
-
+-- Insert data into PokemonTypes
 INSERT INTO PokemonTypes (pokemon_id, type_id) VALUES
                                                    (1, 6),
                                                    (1, 7),
@@ -518,7 +541,7 @@ INSERT INTO PokemonTypes (pokemon_id, type_id) VALUES
                                                    (149, 5),
                                                    (150, 10),
                                                    (151, 10);
-
+-- Insert data into TrainerPokemon
 INSERT INTO TrainerPokemon (caught_id, trainer_id, pokemon_id, nick_name, pokemon_level, hit_points_iv, attack_iv, defense_iv) VALUES
                                                                                                                                    (1, 1, 74, "Geodude", 12, 10, 10, 10),
                                                                                                                                    (2, 1, 95, "Onix", 14, 12, 12, 12),
@@ -540,17 +563,17 @@ INSERT INTO TrainerPokemon (caught_id, trainer_id, pokemon_id, nick_name, pokemo
                                                                                                                                    (18, 10, 65, "Allie", 35, 5, 13, 12),
                                                                                                                                    (19, 10, 71, "Victory", 30, 8, 6, 12),
                                                                                                                                    (20, 10, 68, "Macho", 40, 14, 10, 12);
-
+-- Insert data into Badge
 INSERT INTO Badge (badge_id, badge_name) VALUES
                                              (1, "Boulder Badge"),
                                              (2, "Water Badge"),
                                              (3, "Normal Badge");
-
+-- Insert data into Gym
 INSERT INTO Gym (gym_id, leader_id, town_id, type_id, badge_id) VALUES
                                                                     (1, 1, 1, 11, 1),
                                                                     (2, 2, 2, 4, 2),
                                                                     (3, 3, 3, 8, 3);
-
+-- Insert data into TypeAdvantage
 INSERT INTO TypeAdvantage (type_1, type_2, type_advantage) VALUES
                                                                (1, 1, "Normal"),
                                                                (1, 2, "Normal"),
@@ -876,7 +899,7 @@ INSERT INTO TypeAdvantage (type_1, type_2, type_advantage) VALUES
                                                                (18, 16, "Super effective"),
                                                                (18, 17, "Not very effective"),
                                                                (18, 18, "Normal");
-
+-- Insert data into WildPokemon
 INSERT INTO WildPokemon (wild_id, pokemon_id, region_id, location_description, min_level, max_level) VALUES
                                                                                                          (1, 1, 7, "Lush Jungle", 18, 22),
                                                                                                          (2, 1, 4, "Oreburgh Gate", 5, 9),
@@ -1183,6 +1206,7 @@ INSERT INTO WildPokemon (wild_id, pokemon_id, region_id, location_description, m
                                                                                                          (303, 151, 1, "Rock Tunnel", 14, 20),
                                                                                                          (304, 150, 1, "Cerulean Cave", 70, 70),
                                                                                                          (305, 151, 1, "Faraway Island", 30, 30);
+-- Create a table to log all deleted trainers
 CREATE TABLE DeletedTrainers (
                                  LogID INT PRIMARY KEY AUTO_INCREMENT,
                                  TrainerID INT,
@@ -1190,6 +1214,7 @@ CREATE TABLE DeletedTrainers (
                                  Action VARCHAR(20),
                                  DeletedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 -- Log deleted trainer after delete
 DELIMITER $$
 
@@ -1295,14 +1320,18 @@ begin
 end;
 
 DELIMITER ;
+
+
 -- Because of constraints Delete statements can only be run properly with triggers present
 
 -- Update pokemon level by 1 for each pokemon with trainer_id = 4
+-- Can be used when pokemon gains a level after a fight 
 UPDATE TrainerPokemon AS tp
 SET tp.pokemon_level = tp.pokemon_level + 1
 WHERE tp.trainer_id = 4;
 
 -- Delete all of trainer 6's pokemon
+-- Can be used when Trainer 6 npc gets defeated and is no longer needed
 DELETE FROM TrainerPokemon
 WHERE trainer_id = 6;
 
@@ -1350,7 +1379,10 @@ SELECT
     tr.name AS TrainerName,
     tr.gender,
     tr.age,
+
+-- Get amount of pokemon owned
     COUNT(tp.pokemon_id) AS TotalPokemon,
+    -- Check if trainer is a gym leader
     CASE
         WHEN g.leader_id IS NOT NULL THEN 'Yes'
         ELSE 'No'
@@ -1467,6 +1499,7 @@ BEGIN
 END$$
 
 DELIMITER ;
+
 -- Procedure used to add a new pokemon
 DELIMITER $$
 
