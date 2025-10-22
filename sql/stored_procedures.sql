@@ -5,7 +5,8 @@ CREATE PROCEDURE AddPokemon(IN species_name VARCHAR(50), IN baseHP INT, IN baseA
 BEGIN
 	-- Declare a variable to store new pokemon ID
 	DECLARE new_pokemon_id INT;
-	
+
+	-- Insert data into pokemon
 	INSERT INTO Pokemon(name, base_hp, base_attack, base_defense)
 	VALUES (species_name, baseHP, baseAttack, baseDefense);
 
@@ -41,6 +42,7 @@ CREATE PROCEDURE AddTrainerWithStarter(
     IN starterLevel INT
 )
 BEGIN
+	-- Get random Ivs
     DECLARE new_trainer_id INT;
     DECLARE hp_iv INT DEFAULT FLOOR(RAND() * 31);
     DECLARE atk_iv INT DEFAULT FLOOR(RAND() * 31);
