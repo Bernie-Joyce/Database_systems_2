@@ -26,7 +26,7 @@ END $$
 DELIMITER ;
 
 
--- Change gym leader if curent leader gets deleted
+-- Change gym leader if the current leader gets deleted
 DELIMITER $$
 
 CREATE TRIGGER change_leader_if_deleted
@@ -41,7 +41,8 @@ BEGIN
         UPDATE Gym
         SET leader_id = 4
         WHERE leader_id = OLD.trainer_id;
-
+    
+    -- Else select the next available trainer
     ELSE
         SELECT trainer_id
         INTO new_leader
@@ -50,6 +51,7 @@ BEGIN
         ORDER BY trainer_id
         LIMIT 1;
 
+        -- Update gym leader to the next available leader
         IF new_leader IS NOT NULL THEN
             UPDATE Gym
             SET leader_id = new_leader
@@ -81,12 +83,14 @@ END$$
 
 DELIMITER ;
 
+-- Cap caught pokemon max IVs
 DELIMITER $$
 
 create trigger cap_max_iv
     before insert on TrainerPokemon
     for each row
     begin
+        -- Check if each IV is lower than 31 and change it to 31 otherwise
         if NEW.hit_points_iv > 31 then
             set new.hit_points_iv = 31;
         end if;
