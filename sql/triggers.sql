@@ -1,4 +1,5 @@
 -- Log deleted trainer after delete
+-- Keep record of all removed trainers In case the game needs to be restarted
 DELIMITER $$
 
 CREATE TRIGGER after_trainer_delete
@@ -13,6 +14,7 @@ DELIMITER ;
 
 
 -- Delete trainer pokemon before trainer
+-- Reason: Due to trainer Pokémon relying on Trainer, the trainer can’t be removed. Removing their Pokémon first is necessary. 
 DELIMITER $$
 
 CREATE TRIGGER delete_trainer_pokemon
@@ -27,6 +29,7 @@ DELIMITER ;
 
 
 -- Change gym leader if the current leader gets deleted
+-- Reason: Due to trainer gym relying on Trainer as its leader, the trainer can’t be removed directly. If deleted trainer was a gym leader, gym leader has to be change first. 
 DELIMITER $$
 
 CREATE TRIGGER change_leader_if_deleted
@@ -64,6 +67,7 @@ DELIMITER ;
 
 
 -- Automatically adjust pokemon level to stay within valid bounds (between 1 and 100)
+-- Reason: To ensure all Pokémon levels inserted into the TrainerPokemon table remain within valid gameplay limits (1–100).
 DELIMITER $$
 
 CREATE TRIGGER check_pokemon_level
@@ -84,6 +88,7 @@ END$$
 DELIMITER ;
 
 -- Cap caught pokemon max IVs
+-- Reason: Make sure no pokemons stats were higher than they should be  
 DELIMITER $$
 
 create trigger cap_max_iv
