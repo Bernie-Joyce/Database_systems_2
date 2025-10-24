@@ -1,4 +1,5 @@
 -- View that calculates stats for each caught pokemon based on their base stats and IVs
+-- Reason: If players want to quickly check what statistics their caught Pokémon have it’s crucial to have a view that calculates those and lets them quickly see what random statistics their caught Pokémon possess
 CREATE VIEW TrainerPokemonStats AS
 SELECT
     tp.caught_id,
@@ -20,6 +21,7 @@ FROM TrainerPokemon tp
 JOIN Pokemon p ON tp.pokemon_id = p.pokemon_id;
 
 -- View: Displays each Pokemon with all of its types combined into one line
+-- Reason: To simplify data analysis by displaying each Pokémon and all of its types on a single line instead of multiple rows. 
 CREATE VIEW PokemonWithTypes AS
 SELECT
   p.pokemon_id,
@@ -31,6 +33,7 @@ LEFT JOIN Types AS t         ON t.type_id = pt.type_id
 GROUP BY p.pokemon_id, p.name;
 
 -- View: Displays trainer details with total pokemon, if there a gym leader and there location
+-- Reason: Table view to see all the details of a trainer 
 CREATE VIEW TrainerSummary AS
 SELECT
     tr.trainer_id,
