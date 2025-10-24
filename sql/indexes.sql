@@ -1,14 +1,15 @@
+-- Reason: As players would frequently want to check where they can catch a specific Pokémon they want in their collection it’s beneficial for those queries to be run quickly. Having these indexes improves both speed at which the data is returned as well as efficiency when the dataset grows. 
 -- Index for the region join
 CREATE INDEX index_wildpokemon_region ON WildPokemon(region_id);
-
 -- Index for the pokemon join
 CREATE INDEX index_wildpokemon_pokemon ON WildPokemon(pokemon_id);
 
+-- Reason: To improve join performance between Pokémon and Types tables and demonstrate index usage through an updated EXPLAIN query. 
 -- Index for PokemonTypes join (frequent joins between Pokemon and Types)
 CREATE INDEX idx_pokemontypes_pokemon_id ON PokemonTypes(pokemon_id);
 CREATE INDEX idx_pokemontypes_type_id ON PokemonTypes(type_id);
 
--- To show indexes being used run
+-- To show indexes between Wildpokemon, region and pokemon being used run
 EXPLAIN
 SELECT 
     p.name AS pokemon_name,
