@@ -10,11 +10,11 @@ BEGIN
   VALUES (OLD.trainer_id, OLD.name, 'deleted');
 
 END$$
-DELIMITER ;
 
+DELIMITER;
 
 -- Delete trainer pokemon before trainer
--- Reason: Due to trainer Pokémon relying on Trainer, the trainer can’t be removed. Removing their Pokémon first is necessary. 
+-- Reason: Due to trainer Pokémon relying on Trainer, the trainer can’t be removed. Removing their Pokémon first is necessary.
 DELIMITER $$
 
 CREATE TRIGGER delete_trainer_pokemon
@@ -25,11 +25,11 @@ BEGIN
   WHERE trainer_id = OLD.trainer_id;
 
 END $$
-DELIMITER ;
 
+DELIMITER;
 
 -- Change gym leader if the current leader gets deleted
--- Reason: Due to trainer gym relying on Trainer as its leader, the trainer can’t be removed directly. If deleted trainer was a gym leader, gym leader has to be change first. 
+-- Reason: Due to trainer gym relying on Trainer as its leader, the trainer can’t be removed directly. If deleted trainer was a gym leader, gym leader has to be change first.
 DELIMITER $$
 
 CREATE TRIGGER change_leader_if_deleted
@@ -63,8 +63,8 @@ BEGIN
     END IF;
 
 END $$
-DELIMITER ;
 
+DELIMITER;
 
 -- Automatically adjust pokemon level to stay within valid bounds (between 1 and 100)
 -- Reason: To ensure all Pokémon levels inserted into the TrainerPokemon table remain within valid gameplay limits (1–100).
@@ -85,10 +85,10 @@ BEGIN
   END IF;
 END$$
 
-DELIMITER ;
+DELIMITER;
 
 -- Cap caught pokemon max IVs
--- Reason: Make sure no pokemons stats were higher than they should be  
+-- Reason: Make sure no pokemons stats were higher than they should be
 DELIMITER $$
 
 create trigger cap_max_iv
@@ -107,4 +107,22 @@ create trigger cap_max_iv
         end if;
     end;
 
-DELIMITER ;
+DELIMITER;
+
+--Caps trainer to 6 pokemon max
+--Reason: Ensures no trainer has more pokemon than they logically should
+
+DELIMITER $$
+
+CREATE TRIGGER cap_trainer_pokemon
+BEFORE INSERT ON TrainerPokemon
+FOR EACH ROW
+BEGIN
+DECLARE pokemon_count INT;
+SELECT COUNT(*) INTO pokemon_count FROM TrainerPokemon WHERE trainer_id = NEW.trainer_id;
+IF pokemon_count >=6 THEN 
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Trainer already has 6 pokemon, they cannot have more in their party';
+END IF;
+END$$
+
+DELIMITER;
